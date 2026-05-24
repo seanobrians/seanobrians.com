@@ -55,8 +55,10 @@ function setActiveSection(id) {
 // ── RENDER MOCKUPS ─────────────────────────────────────────────────────────
 const MOCKUP_SHAPES = {
   pint: 'pint-glass', amber: 'pint-glass', wheat: 'pint-glass',
-  bottle: 'bottle-body', gin: 'gin-bowl', rocks: 'rocks-glass',
+  bottle: 'bottle-body', 'bottle-dark': 'bottle-body', 'bottle-amber': 'bottle-body',
+  gin: 'gin-bowl', rocks: 'rocks-glass',
   wine: 'wine-glass', coffee: 'coffee-cup', plate: 'plate-shape', shot: 'shot-glass',
+  pizza: 'pizza-shape',
 }
 
 function renderMockup(type) {

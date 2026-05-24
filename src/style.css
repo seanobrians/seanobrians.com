@@ -16,6 +16,23 @@
   --nav-height: 82px;
 }
 
+/* Fallback font metrics aproximados a Cinzel/EB Garamond para reducir CLS al swap */
+@font-face {
+  font-family: 'Cinzel-fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 96%;
+  ascent-override: 90%;
+  descent-override: 22%;
+}
+
+@font-face {
+  font-family: 'EBGaramond-fallback';
+  src: local('Georgia'), local('serif');
+  size-adjust: 102%;
+  ascent-override: 88%;
+  descent-override: 20%;
+}
+
 * { box-sizing: border-box; }
 
 html {
@@ -27,7 +44,7 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
-  font-family: "EB Garamond", Georgia, serif;
+  font-family: "EB Garamond", "EBGaramond-fallback", Georgia, serif;
   background:
     radial-gradient(circle at 50% -5%, rgba(201, 168, 76, 0.16), transparent 34rem),
     radial-gradient(circle at 15% 10%, rgba(31, 111, 80, 0.12), transparent 18rem),
@@ -39,11 +56,14 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), transparent 75%);
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 22px,
+    rgba(255,255,255,0.013) 22px,
+    rgba(255,255,255,0.013) 23px
+  );
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.85), transparent 70%);
 }
 
 button { font: inherit; }
@@ -119,7 +139,7 @@ button { font: inherit; }
 .pub-name {
   margin: 0;
   color: var(--gold-light);
-  font-family: "Cinzel Decorative", "Cinzel", serif;
+  font-family: "Cinzel Decorative", "Cinzel", "Cinzel-fallback", serif;
   font-size: clamp(2rem, 10vw, 3.05rem);
   line-height: 1.02;
   letter-spacing: 0.03em;
@@ -169,7 +189,11 @@ button { font: inherit; }
 }
 
 /* ── VIEW ── */
-.view { padding: 0 1rem 1.4rem; }
+.view {
+  padding: 0 1rem 1.4rem;
+  counter-reset: section;
+  min-height: 100vh;
+}
 
 .section-kicker {
   display: flex;
@@ -214,26 +238,18 @@ button { font: inherit; }
 /* ── BANNER ── */
 .banner {
   position: relative;
-  height: clamp(170px, 46vw, 235px);
+  height: clamp(155px, 42vw, 210px);
   margin: 1rem 0 1.15rem;
-  border: 1px solid rgba(201,168,76,0.33);
+  border-top: 1px solid rgba(201,168,76,0.28);
+  border-bottom: 1px solid rgba(201,168,76,0.18);
   background:
-    linear-gradient(135deg, rgba(232,204,133,0.12), transparent 30%),
-    radial-gradient(circle at 86% 12%, rgba(201,168,76,0.22), transparent 9rem),
+    radial-gradient(ellipse at 78% 50%, rgba(201,168,76,0.13), transparent 55%),
     linear-gradient(145deg, rgba(43,18,31,0.98), rgba(11,4,8,0.98));
-  box-shadow: 0 18px 50px rgba(0,0,0,0.32), inset 0 0 0 1px rgba(255,255,255,0.025);
   overflow: hidden;
   touch-action: pan-y;
   user-select: none;
 }
 
-.banner::before {
-  content: "";
-  position: absolute;
-  inset: 0.45rem;
-  border: 1px solid rgba(201,168,76,0.12);
-  pointer-events: none;
-}
 
 .banner-track {
   height: 100%;
@@ -258,14 +274,16 @@ button { font: inherit; }
 .banner-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 1.45rem;
-  margin-bottom: 0.65rem;
-  padding: 0.15rem 0.5rem 0.1rem;
-  border: 1px solid rgba(232,204,133,0.38);
-  color: var(--gold-light);
-  background: rgba(13,4,8,0.35);
+  align-self: flex-start;
+  min-height: 1.35rem;
+  margin-bottom: 0.6rem;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(232,204,133,0.32);
+  color: var(--gold-dim);
+  background: rgba(13,4,8,0.45);
   font-family: "Cinzel", serif;
-  font-size: 0.56rem;
+  font-size: 0.54rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -273,36 +291,22 @@ button { font: inherit; }
 .banner-title {
   margin: 0;
   color: var(--cream);
-  font-family: "Cinzel", serif;
-  font-size: clamp(1.15rem, 6vw, 1.72rem);
-  line-height: 1.02;
-  letter-spacing: 0.04em;
+  font-family: "Cinzel Decorative", "Cinzel", serif;
+  font-size: clamp(1.1rem, 5.5vw, 1.6rem);
+  line-height: 1.08;
+  letter-spacing: 0.03em;
+  max-width: 68%;
 }
 
 .banner-subtitle {
-  margin: 0.48rem 0 0;
-  max-width: 15rem;
-  color: var(--text);
-  font-size: 0.98rem;
-  line-height: 1.25;
+  margin: 0.52rem 0 0;
+  max-width: 62%;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.28;
 }
 
-.banner-rail {
-  position: absolute;
-  left: 1.2rem; right: 1.2rem; bottom: 0.78rem;
-  display: flex;
-  gap: 0.38rem;
-  z-index: 3;
-}
-
-.banner-dot {
-  width: 1.55rem; height: 2px;
-  border: 0; padding: 0;
-  background: rgba(201,168,76,0.24);
-  cursor: pointer;
-}
-
-.banner-dot.is-active { background: var(--gold-light); }
+.banner-rail { display: none; }
 
 /* ── MOCKUP SHAPES ── */
 .mockup {
@@ -383,6 +387,16 @@ button { font: inherit; }
   height: 27px;
   border: 1px solid rgba(232,204,133,0.6);
   background: rgba(232,204,133,0.12);
+}
+
+/* Variantes de color para botellines */
+.mockup-bottle-dark .bottle-body {
+  background: linear-gradient(180deg, rgba(18,10,5,0.97), rgba(6,3,1,0.99));
+}
+
+.mockup-bottle-amber .bottle-body,
+.mockup-bottle-amber .bottle-body::before {
+  background: linear-gradient(180deg, rgba(160,90,20,0.92), rgba(90,45,10,0.97));
 }
 
 .gin-bowl {
@@ -511,27 +525,74 @@ button { font: inherit; }
   background: linear-gradient(180deg, transparent 0 36%, rgba(232,204,133,0.36) 37%, rgba(111,45,32,0.9));
 }
 
+.pizza-shape {
+  display: block; position: relative;
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(190,83,24,0.88) 0deg 60deg,
+    rgba(232,204,133,0.55) 60deg 62deg,
+    rgba(190,83,24,0.88) 62deg 120deg,
+    rgba(232,204,133,0.55) 120deg 122deg,
+    rgba(190,83,24,0.88) 122deg 180deg,
+    rgba(232,204,133,0.55) 180deg 182deg,
+    rgba(190,83,24,0.88) 182deg 240deg,
+    rgba(232,204,133,0.55) 240deg 242deg,
+    rgba(190,83,24,0.88) 242deg 300deg,
+    rgba(232,204,133,0.55) 300deg 302deg,
+    rgba(190,83,24,0.88) 302deg 360deg
+  );
+  border: 2px solid rgba(232,204,133,0.78);
+  box-shadow: 0 0 0 6px rgba(190,83,24,0.22);
+}
+
+.pizza-shape::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,204,133,0.18) 0%, rgba(190,83,24,0.22) 100%);
+  border: 1.5px solid rgba(232,204,133,0.38);
+}
+
+.pizza-shape::after {
+  content: "";
+  position: absolute;
+  inset: 28px;
+  border-radius: 50%;
+  background: rgba(232,204,133,0.12);
+  border: 1px solid rgba(232,204,133,0.22);
+}
+
 /* ── GROUPS ── */
 .group { margin: 1.15rem 0 1.35rem; }
 
 .group-title {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.55rem;
   margin: 0 0 0.65rem;
   color: var(--gold-dim);
-  font-size: 1rem;
+  font-size: 0.94rem;
   font-style: italic;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
-.group-title::before,
+.group-title::before {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 1rem;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  flex-shrink: 0;
+}
+
 .group-title::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(90,62,32,0.52);
+  background: rgba(90,62,32,0.35);
 }
 
 .products { display: grid; gap: 0.58rem; }
@@ -543,29 +604,25 @@ button { font: inherit; }
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.7rem;
   align-items: center;
-  min-height: 76px;
-  padding: 0.72rem 0.72rem 0.74rem;
-  border: 1px solid rgba(90,62,32,0.48);
-  background:
-    linear-gradient(90deg, rgba(201,168,76,0.055), transparent 55%),
-    rgba(15,5,10,0.34);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  min-height: 68px;
+  padding: 0.7rem 0 0.72rem 0.8rem;
+  border-bottom: 1px solid rgba(90,62,32,0.3);
+  background: transparent;
 }
 
 .product-card.is-highlighted {
-  border-color: rgba(232,204,133,0.42);
-  background:
-    linear-gradient(90deg, rgba(201,168,76,0.12), rgba(99,35,58,0.12) 58%, transparent),
-    rgba(20,7,13,0.58);
+  background: transparent;
+  border-bottom-color: rgba(201,168,76,0.2);
 }
 
 .product-card.is-highlighted::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55rem; bottom: 0.55rem;
+  top: 0.45rem; bottom: 0.45rem;
   width: 2px;
-  background: linear-gradient(180deg, transparent, var(--gold-light), transparent);
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, var(--emerald), transparent);
 }
 
 .product-main { min-width: 0; }
@@ -622,14 +679,16 @@ button { font: inherit; }
 .price-pill {
   display: grid;
   align-content: center;
-  justify-items: end;
-  min-width: 3.1rem;
-  min-height: 2.62rem;
-  padding: 0.22rem 0.36rem;
-  border-left: 1px solid rgba(201,168,76,0.23);
+  justify-items: center;
+  min-width: 3rem;
+  min-height: 2.45rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.04);
   color: var(--gold);
   font-family: "Cinzel", serif;
-  text-align: right;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -710,30 +769,56 @@ button { font: inherit; }
 
 .nav-tab {
   flex: 0 0 auto;
-  min-width: 4.65rem;
-  min-height: 3.05rem;
-  padding: 0.44rem 0.62rem 0.36rem;
-  border: 1px solid rgba(201,168,76,0.22);
-  color: var(--gold-dim);
-  background: rgba(201,168,76,0.045);
+  min-width: 4.4rem;
+  min-height: 2.6rem;
+  padding: 0.38rem 0.78rem 0.34rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201,168,76,0.16);
+  color: var(--muted);
+  background: transparent;
   font-family: "Cinzel", serif;
   font-size: 0.58rem;
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  transition: color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .nav-tab.is-active {
-  color: var(--ink);
-  border-color: rgba(232,204,133,0.82);
-  background: linear-gradient(180deg, var(--gold-light), var(--gold));
-  box-shadow: 0 8px 20px rgba(201,168,76,0.18);
-  transform: translateY(-2px);
+  color: var(--gold-light);
+  border-color: rgba(201,168,76,0.65);
+  box-shadow: 0 0 14px rgba(201,168,76,0.14), inset 0 0 0 1px rgba(201,168,76,0.1);
 }
 
 .nav-label { display: block; max-width: 6.6rem; overflow-wrap: anywhere; line-height: 1.18; }
+
+/* ── SECTION WRAPPER ── */
+.section-wrapper {
+  position: relative;
+  counter-increment: section;
+}
+
+.section-wrapper::before {
+  content: counter(section, decimal-leading-zero);
+  position: absolute;
+  top: 0.1rem;
+  right: 0;
+  font-family: "Cinzel", serif;
+  font-size: 5.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(201,168,76,0.055);
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-wrapper + .section-wrapper {
+  margin-top: 1rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(90,62,32,0.4);
+}
 
 /* ── FOOTER ── */
 footer { padding: 0.7rem 1rem 0.4rem; text-align: center; }
