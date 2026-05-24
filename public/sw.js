@@ -1,5 +1,5 @@
 const CACHE = 'sob-menu-v1'
-const BASE  = '/MenuSeanOBrians/'
+const BASE  = '/seanobrians.com/'
 
 const PRECACHE = [
   BASE,

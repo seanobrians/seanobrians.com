@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/MenuSeanOBrians/',
+  base: '/seanobrians.com/',
   build: {
     outDir: 'dist',
     minify: 'esbuild',
