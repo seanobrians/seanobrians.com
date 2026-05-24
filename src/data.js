@@ -85,8 +85,8 @@ export const menuData = [
   },
   {
     id: 'sinalcohol',
-    nav: copy('Sin Alcohol', 'No Alcohol'),
-    title: copy('Sin Alcohol', 'No Alcohol'),
+    nav: copy('Sin Alcohol', 'Soft Drinks'),
+    title: copy('Sin Alcohol', 'Soft Drinks'),
     subtitle: copy('Cafés, refrescos, zumos y mezclas frescas para cualquier hora.', 'Coffee, soft drinks, juices and fresh mixes for any moment.'),
     bannerItems: [
       { title: 'Café con Leche',    subtitle: copy('Cremoso, caliente y perfecto para una pausa tranquila.', 'Creamy, warm and perfect for a quiet pause.'), badge: badge('Café', 'Coffee'), mockup: 'coffee' },

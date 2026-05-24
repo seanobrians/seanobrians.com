@@ -3,8 +3,8 @@ import { menuData, uiText } from './data.js'
 
 // ── STATE ──────────────────────────────────────────────────────────────────
 let currentLang = localStorage.getItem('sean-menu-lang') || 'es'
-let activeSectionId = location.hash ? location.hash.slice(1) : menuData[0].id
-let activeCarousel = null
+let activeSectionId = menuData[0].id
+const carousels = new Map()
 
 const view = document.getElementById('menu-view')
 const nav  = document.getElementById('category-nav')
@@ -42,9 +42,14 @@ function renderNav() {
   `).join('')
 }
 
-function syncActiveTab() {
-  const active = [...nav.querySelectorAll('[data-section]')].find(b => b.dataset.section === activeSectionId)
-  active?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+function setActiveSection(id) {
+  if (id === activeSectionId) return
+  activeSectionId = id
+  nav.querySelectorAll('[data-section]').forEach(btn => {
+    btn.classList.toggle('is-active', btn.dataset.section === id)
+  })
+  nav.querySelector(`[data-section="${id}"]`)
+    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
 }
 
 // ── RENDER MOCKUPS ─────────────────────────────────────────────────────────
@@ -66,14 +71,14 @@ function renderMockup(type) {
 }
 
 // ── RENDER BANNER ──────────────────────────────────────────────────────────
-function renderBanner(items) {
+function renderBanner(items, sectionId) {
   const slides = [...items, ...items, ...items]
   const dots = items.map((_, i) =>
     `<button class="banner-dot ${i === 0 ? 'is-active' : ''}" type="button" data-dot="${i}" aria-label="${i + 1}"></button>`
   ).join('')
 
   return `
-    <section class="banner" id="section-banner" aria-label="${esc(t(uiText.featured))}">
+    <section class="banner" id="banner-${esc(sectionId)}" aria-label="${esc(t(uiText.featured))}">
       <div class="banner-track">
         ${slides.map(item => `
           <article class="banner-slide">
@@ -140,27 +145,29 @@ function renderGroup(group) {
     </section>`
 }
 
-// ── RENDER SECTION ─────────────────────────────────────────────────────────
-function renderSection(sectionId, shouldScroll = true) {
-  const section = menuData.find(s => s.id === sectionId) || menuData[0]
-  activeSectionId = section.id
+// ── RENDER ALL SECTIONS ────────────────────────────────────────────────────
+function renderAll() {
+  carousels.forEach(c => c.destroy())
+  carousels.clear()
 
-  activeCarousel?.destroy()
+  view.innerHTML = menuData.map(section => `
+    <div class="section-wrapper" id="section-${esc(section.id)}" data-section-id="${esc(section.id)}">
+      <div class="section-kicker">${esc(t(uiText.featured))}</div>
+      <h1 class="section-heading">${esc(t(section.title))}</h1>
+      <p class="section-subtitle">${esc(t(section.subtitle))}</p>
+      ${renderBanner(section.bannerItems, section.id)}
+      ${section.groups.map(renderGroup).join('')}
+    </div>
+  `).join('')
 
-  view.innerHTML = `
-    <div class="section-kicker">${esc(t(uiText.featured))}</div>
-    <h1 class="section-heading">${esc(t(section.title))}</h1>
-    <p class="section-subtitle">${esc(t(section.subtitle))}</p>
-    ${renderBanner(section.bannerItems)}
-    ${section.groups.map(renderGroup).join('')}
-  `
-
-  document.title = `Sean O'Brian's – ${t(section.title)}`
   renderNav()
-  syncActiveTab()
-  activeCarousel = new BannerMotion(document.getElementById('section-banner'), section.bannerItems.length)
 
-  if (shouldScroll) window.scrollTo({ top: 0, behavior: 'smooth' })
+  menuData.forEach(section => {
+    const bannerEl = document.getElementById(`banner-${section.id}`)
+    if (bannerEl) {
+      carousels.set(section.id, new BannerMotion(bannerEl, section.bannerItems.length))
+    }
+  })
 }
 
 // ── BANNER CAROUSEL ────────────────────────────────────────────────────────
@@ -306,8 +313,8 @@ class BannerMotion {
 nav.addEventListener('click', e => {
   const btn = e.target.closest('[data-section]')
   if (!btn) return
-  history.replaceState(null, '', `#${btn.dataset.section}`)
-  renderSection(btn.dataset.section)
+  document.getElementById(`section-${btn.dataset.section}`)
+    ?.scrollIntoView({ behavior: 'smooth' })
 })
 
 document.querySelector('.top-actions').addEventListener('click', e => {
@@ -315,14 +322,24 @@ document.querySelector('.top-actions').addEventListener('click', e => {
   if (!btn || btn.dataset.lang === currentLang) return
   currentLang = btn.dataset.lang
   localStorage.setItem('sean-menu-lang', currentLang)
+  const scrollY = window.scrollY
   renderStaticText()
-  renderSection(activeSectionId, false)
+  renderAll()
+  window.scrollTo(0, scrollY)
 })
 
-window.addEventListener('hashchange', () => {
-  const id = location.hash.slice(1)
-  if (id && id !== activeSectionId) renderSection(id)
-})
+// ── ACTIVE SECTION ON SCROLL ───────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  let current = menuData[0].id
+  const threshold = window.innerHeight * 0.4
+  for (const section of menuData) {
+    const el = document.getElementById(`section-${section.id}`)
+    if (el && el.getBoundingClientRect().top <= threshold) {
+      current = section.id
+    }
+  }
+  setActiveSection(current)
+}, { passive: true })
 
 // ── SERVICE WORKER ─────────────────────────────────────────────────────────
 if ('serviceWorker' in navigator) {
@@ -333,4 +350,4 @@ if ('serviceWorker' in navigator) {
 
 // ── INIT ───────────────────────────────────────────────────────────────────
 renderStaticText()
-renderSection(menuData.some(s => s.id === activeSectionId) ? activeSectionId : menuData[0].id, false)
+renderAll()
