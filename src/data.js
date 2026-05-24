@@ -1,0 +1,278 @@
+export const copy = (es, en = es) => ({ es, en })
+export const badge = (es, en = es) => copy(es, en)
+export const p = (name, prices, meta = {}) => ({ name, ...prices, ...meta })
+
+export const uiText = {
+  menuTitle: copy('Drinks Menu', 'Drinks Menu'),
+  featured:  copy('Destacado', 'Featured'),
+  category:  copy('Categoría', 'Category'),
+}
+
+export const menuData = [
+  {
+    id: 'barril',
+    nav: copy('De Barril', 'On Tap'),
+    title: copy('De Barril', 'On Tap'),
+    subtitle: copy('Pintas servidas con calma, espuma cuidada y clásicos de pub para empezar bien.', 'Freshly poured pints, proper foam and pub classics to start strong.'),
+    bannerItems: [
+      { title: 'Guinness',     subtitle: copy('Irish dry stout de cuerpo cremoso y final tostado.', 'Creamy Irish dry stout with a roasted finish.'),       badge: badge('Irish classic'), mockup: 'pint'  },
+      { title: "Murphy's Red", subtitle: copy('Ale roja irlandesa, suave, maltosa y muy equilibrada.', 'Smooth Irish red ale with balanced malt character.'), badge: badge('Popular'),      mockup: 'amber' },
+      { title: 'Paulaner',     subtitle: copy('Trigo alemana, aromática y refrescante.', 'Aromatic, refreshing German wheat beer.'),                        badge: badge('Wheat'),        mockup: 'wheat' },
+    ],
+    groups: [{
+      id: 'draft', name: copy('Cervezas de barril', 'Draft beer'),
+      columns: [{ key: 'halfPrice', label: '½ Pint' }, { key: 'pintPrice', label: 'Pint' }],
+      defaultDescription: copy('Servida fresca, con final limpio y carácter de pub clásico.', 'Freshly poured with a clean finish and classic pub character.'),
+      products: [
+        p('Guinness',        { halfPrice: '3,3€', pintPrice: '6€'   }, { highlighted: true,  badge: badge('Irish classic'), description: copy('Irish dry stout de cuerpo cremoso y final tostado.', 'Creamy Irish dry stout with a roasted finish.') }),
+        p("Murphy's Red",    { halfPrice: '3,3€', pintPrice: '6€'   }, { highlighted: true,  badge: badge('Popular'),       description: copy('Ale roja irlandesa, suave, maltosa y fácil de beber.', 'Smooth Irish red ale with gentle malt notes.') }),
+        p('Paulaner',        { halfPrice: '3,3€', pintPrice: '6€'   }, { highlighted: true,  badge: badge('Wheat'),         description: copy('Cerveza de trigo alemana, suave, aromática y refrescante.', 'Soft, aromatic and refreshing German wheat beer.') }),
+        p('Amstel',          { halfPrice: '2,2€', pintPrice: '4€'   }, { description: copy('Lager ligera, fresca y directa.', 'Light, crisp and easy lager.') }),
+        p('Amstel Oro',      { halfPrice: '2,5€', pintPrice: '4€'   }, { description: copy('Lager tostada con cuerpo medio y final suave.', 'Toasted lager with medium body and smooth finish.') }),
+        p('Tinto de Verano', { halfPrice: '2,5€', pintPrice: '4,5€' }, { badge: badge('Refrescante', 'Refreshing'), description: copy('Vino con toque cítrico, hielo y punto dulce.', 'Wine-based refresher with citrus and a gentle sweet note.') }),
+      ],
+    }],
+  },
+  {
+    id: 'tercios',
+    nav: copy('Tercios', 'Bottles'),
+    title: copy('Tercios', 'Bottles'),
+    subtitle: copy('Botellas clásicas, craft y sidras para quien busca algo concreto.', 'Classic bottles, craft beers and ciders for a sharper choice.'),
+    bannerItems: [
+      { title: 'Lagunitas IPA',    subtitle: copy('IPA intensa, cítrica y con amargor equilibrado.', 'Bright citrus IPA with balanced bitterness.'),        badge: badge('Craft'),                 mockup: 'bottle' },
+      { title: 'Judas',            subtitle: copy('Rubia belga potente, especiada y con carácter.', 'Strong Belgian blonde with spice and character.'),     badge: badge('Especial', 'Special'),   mockup: 'bottle' },
+      { title: 'Magners Original', subtitle: copy('Sidra irlandesa seca, fresca y muy fácil de compartir.', 'Dry Irish cider, fresh and easy to share.'), badge: badge('Cider'),                 mockup: 'bottle' },
+    ],
+    groups: [
+      { id: 'clasicas', name: copy('Clásicas', 'Classics'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Cerveza de botella equilibrada, fresca y fácil de beber.', 'Balanced bottled beer, fresh and easy to drink.'), products: [
+        p('Heineken',           { price: '2,8€' }, { description: copy('Lager clásica, ligera y refrescante.', 'Classic lager, light and refreshing.') }),
+        p('Águila Dorada',      { price: '2,8€' }, { description: copy('Lager dorada, suave y de trago fácil.', 'Golden lager, smooth and easy-drinking.') }),
+        p('Águila Sin Filtrar', { price: '3,5€' }, { badge: badge('Sin filtrar', 'Unfiltered'), description: copy('Más textura, cereal y un punto artesanal.', 'More texture, cereal notes and a craft touch.') }),
+        p('18/70',              { price: '2,8€' }, { description: copy('Lager con cuerpo ligero y final limpio.', 'Light-bodied lager with a clean finish.') }),
+        p('Cruzcampo S.G.',     { price: '3€'   }, { description: copy('Opción sin gluten, fresca y sencilla.', 'Gluten-free option, fresh and straightforward.') }),
+        p('Sol',                { price: '3,5€' }, { description: copy('Lager mexicana clara, suave y refrescante.', 'Clear Mexican lager, soft and refreshing.') }),
+        p('Moretti',            { price: '3,5€' }, { highlighted: true, badge: badge('Popular'), description: copy('Lager italiana equilibrada, seca y aromática.', 'Balanced Italian lager, dry and aromatic.') }),
+        p('Dos XX',             { price: '3,5€' }, { description: copy('Lager mexicana con cuerpo ligero y final amable.', 'Mexican lager with light body and an easy finish.') }),
+      ]},
+      { id: 'craft', name: copy('Craft · Especiales', 'Craft · Specials'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Cervezas con más aroma, cuerpo y personalidad.', 'Beers with more aroma, body and personality.'), products: [
+        p('Lagunitas IPA', { price: '4€'   }, { highlighted: true, badge: badge('Craft'),              description: copy('IPA intensa, cítrica y con un amargor equilibrado.', 'Bright citrus IPA with balanced bitterness.') }),
+        p('Hop House',     { price: '4€'   }, { description: copy('Lager lupulada, fresca y aromática.', 'Hoppy lager, fresh and aromatic.') }),
+        p('Judas',         { price: '4,5€' }, { highlighted: true, badge: badge('Especial', 'Special'), description: copy('Rubia belga potente, especiada y con carácter.', 'Strong Belgian blonde with spice and character.') }),
+        p('Mort Subite',   { price: '4€'   }, { description: copy('Cerveza de fruta con acidez suave y final dulce.', 'Fruit beer with soft acidity and a sweet finish.') }),
+      ]},
+      { id: 'zeta', name: copy('Artesana Zeta', 'Zeta Craft'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Artesanas locales con perfiles limpios y modernos.', 'Local craft beers with clean, modern profiles.'), products: [
+        p('Zeta Hell',    { price: '4€' }, { badge: badge('Local'), description: copy('Rubia artesana de estilo limpio y refrescante.', 'Clean and refreshing craft blonde beer.') }),
+        p('Zeta Hop',     { price: '4€' }, { description: copy('Aromática, lupulada y de amargor amable.', 'Aromatic, hoppy and gently bitter.') }),
+        p('Zeta Trigger', { price: '4€' }, { description: copy('Cerveza artesana con más cuerpo y presencia.', 'Craft beer with more body and presence.') }),
+      ]},
+      { id: 'saborizadas', name: copy('Saborizadas', 'Flavoured'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Opciones frescas, cítricas o dulces para un trago más ligero.', 'Fresh, citrus or sweet options for a lighter drink.'), products: [
+        p('Radler',     { price: '2,8€' }, { description: copy('Cerveza con limón, ligera y muy refrescante.', 'Beer with lemon, light and very refreshing.') }),
+        p('Desperados', { price: '3,5€' }, { badge: badge('Tequila'), description: copy('Cerveza con toque de tequila y final dulce.', 'Beer with tequila notes and a sweet finish.') }),
+        p('Ladrón',     { price: '3,5€' }, { description: copy('Sidra suave con fruta y punto dulce.', 'Soft cider with fruit and a sweet touch.') }),
+      ]},
+      { id: 'sidras', name: copy('Sidras Magners', 'Magners Ciders'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Sidras irlandesas servidas frías, frescas y aromáticas.', 'Irish ciders served cold, fresh and aromatic.'), products: [
+        p('Magners Original', { price: '5,5€' }, { highlighted: true, badge: badge('Irish cider'), description: copy('Sidra irlandesa seca, fresca y muy fácil de compartir.', 'Dry Irish cider, fresh and easy to share.') }),
+        p('Magners Berry',    { price: '5,5€' }, { description: copy('Sidra con frutos rojos, dulce y aromática.', 'Cider with red berries, sweet and aromatic.') }),
+        p('Magners Pear',     { price: '5,5€' }, { description: copy('Sidra de pera, suave y refrescante.', 'Pear cider, soft and refreshing.') }),
+      ]},
+      { id: 'zero', name: copy('Sin Alcohol 0,0', 'Alcohol Free 0.0'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Sabor de cerveza con un perfil ligero y sin alcohol.', 'Beer flavour with a lighter alcohol-free profile.'), products: [
+        p('Heineken 0,0',   { price: '2,8€' }, { description: copy('Lager 0,0 fresca, ligera y limpia.', 'Fresh, light and clean alcohol-free lager.') }),
+        p('Amstel Oro 0,0', { price: '2,8€' }, { description: copy('Tostada 0,0 con cuerpo suave.', 'Alcohol-free toasted lager with gentle body.') }),
+        p('Guinness 0,0',   { price: '5€'   }, { highlighted: true, badge: badge('Irish 0,0'), description: copy('Versión 0,0 con crema y notas tostadas.', 'Alcohol-free version with creaminess and roasted notes.') }),
+        p('Zeta 0,0',       { price: '4€'   }, { description: copy('Artesana sin alcohol, fresca y aromática.', 'Alcohol-free craft beer, fresh and aromatic.') }),
+      ]},
+    ],
+  },
+  {
+    id: 'sinalcohol',
+    nav: copy('Sin Alcohol', 'No Alcohol'),
+    title: copy('Sin Alcohol', 'No Alcohol'),
+    subtitle: copy('Cafés, refrescos, zumos y mezclas frescas para cualquier hora.', 'Coffee, soft drinks, juices and fresh mixes for any moment.'),
+    bannerItems: [
+      { title: 'Café con Leche',    subtitle: copy('Cremoso, caliente y perfecto para una pausa tranquila.', 'Creamy, warm and perfect for a quiet pause.'), badge: badge('Café', 'Coffee'), mockup: 'coffee' },
+      { title: 'Coca-Cola Zero',    subtitle: copy('Burbuja clásica, fresca y sin azúcar.', 'Classic fizz, fresh and sugar-free.'),                        badge: badge('Zero'),           mockup: 'bottle' },
+      { title: 'Zumo de Cranberry', subtitle: copy('Frutal, ácido y perfecto para combinar o tomar solo.', 'Fruity, tart and ideal alone or mixed.'),       badge: badge('Fresh'),          mockup: 'wine'   },
+    ],
+    groups: [
+      { id: 'cafes', name: copy('Cafés & Infusiones', 'Coffee & Tea'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Clásico de barra, servido al momento.', 'Bar classic, served fresh.'), products: [
+        p('Café Solo',      { price: '1,6€' }, { description: copy('Espresso intenso y directo.', 'Intense, direct espresso.') }),
+        p('Café Cortado',   { price: '1,7€' }, { description: copy('Espresso con un toque suave de leche.', 'Espresso with a soft touch of milk.') }),
+        p('Café con Leche', { price: '1,8€' }, { highlighted: true, badge: badge('Clásico', 'Classic'), description: copy('Cremoso, caliente y perfecto para una pausa tranquila.', 'Creamy, warm and perfect for a quiet pause.') }),
+        p('Carajillo',      { price: '2,5€' }, { badge: badge('Tradición', 'Tradition'), description: copy('Café con licor, aromático y reconfortante.', 'Coffee with liqueur, aromatic and warming.') }),
+        p('Infusión',       { price: '1,6€' }, { description: copy('Ligera, aromática y sin prisa.', 'Light, aromatic and unhurried.') }),
+      ]},
+      { id: 'refrescos', name: copy('Refrescos', 'Soft Drinks'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Frío, con burbuja y listo para refrescar.', 'Cold, fizzy and ready to refresh.'), products: [
+        p('Coca-Cola',        { price: '2,2€' }, { description: copy('Refresco clásico, dulce y con burbuja intensa.', 'Classic soda, sweet with bold fizz.') }),
+        p('Coca-Cola Zero',   { price: '2,2€' }, { highlighted: true, badge: badge('Zero'), description: copy('Burbuja clásica, fresca y sin azúcar.', 'Classic fizz, fresh and sugar-free.') }),
+        p('Fanta Naranja',    { price: '2,2€' }, { description: copy('Naranja dulce, cítrica y muy fría.', 'Sweet orange, citrusy and cold.') }),
+        p('Fanta Limón',      { price: '2,2€' }, { description: copy('Limón chispeante, ligero y refrescante.', 'Sparkling lemon, light and refreshing.') }),
+        p('Sprite',           { price: '2,2€' }, { description: copy('Lima-limón, burbuja fina y final seco.', 'Lemon-lime, fine bubbles and a dry finish.') }),
+        p('Nestea',           { price: '2,5€' }, { description: copy('Té frío suave, dulce y aromático.', 'Soft iced tea, sweet and aromatic.') }),
+        p('Aquarius Limón',   { price: '2,5€' }, { description: copy('Cítrico, ligero y muy hidratante.', 'Citrusy, light and refreshing.') }),
+        p('Aquarius Naranja', { price: '2,5€' }, { description: copy('Naranja suave, fresca y fácil de beber.', 'Soft orange, fresh and easy to drink.') }),
+        p('Aquarius Rojo',    { price: '2,5€' }, { description: copy('Frutal, fresco y con punto dulce.', 'Fruity, fresh and lightly sweet.') }),
+      ]},
+      { id: 'aguas', name: copy('Aguas & Sodas', 'Water & Sodas'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Base fresca para acompañar o combinar.', 'A fresh base to sip or mix.'), products: [
+        p('Agua',        { price: '1,5€' }, { description: copy('Agua mineral fría.', 'Cold mineral water.') }),
+        p('Agua con Gas', { price: '2,5€' }, { description: copy('Mineral con burbuja fina.', 'Sparkling mineral water.') }),
+        p('Soda',        { price: '2,2€' }, { description: copy('Burbuja limpia para refrescar o combinar.', 'Clean fizz to refresh or mix.') }),
+        p('Ginger',      { price: '2,2€' }, { description: copy('Refresco especiado con toque de jengibre.', 'Spiced soda with a ginger touch.') }),
+        p('Tónica',      { price: '2,2€' }, { description: copy('Amargor elegante y burbuja seca.', 'Elegant bitterness with dry bubbles.') }),
+      ]},
+      { id: 'zumos', name: copy('Zumos & Energéticos', 'Juices & Energy'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Fruta, energía o un punto ácido para cambiar el ritmo.', 'Fruit, energy or a tart note to shift the mood.'), products: [
+        p('Zumo de Naranja',   { price: '2,8€' }, { description: copy('Dulce, cítrico y refrescante.', 'Sweet, citrusy and refreshing.') }),
+        p('Zumo de Piña',      { price: '2,8€' }, { description: copy('Tropical, suave y aromático.', 'Tropical, soft and aromatic.') }),
+        p('Zumo de Melocotón', { price: '2,8€' }, { description: copy('Denso, dulce y afrutado.', 'Rich, sweet and fruity.') }),
+        p('Zumo de Cranberry', { price: '2,8€' }, { highlighted: true, badge: badge('Fresh'), description: copy('Frutal, ácido y perfecto para combinar o tomar solo.', 'Fruity, tart and ideal alone or mixed.') }),
+        p('Monster',           { price: '3€'   }, { badge: badge('Energy'), description: copy('Energético frío, intenso y con gas.', 'Cold energy drink, bold and fizzy.') }),
+      ]},
+    ],
+  },
+  {
+    id: 'ginebras',
+    nav: copy('Ginebras', 'Gin'),
+    title: copy('Ginebras', 'Gin'),
+    subtitle: copy('Ginebras para copa larga, con opción premium para redondear el trago.', 'Gins for long serves, with premium options for a fuller drink.'),
+    bannerItems: [
+      { title: "Hendrick's",        subtitle: copy('Ginebra premium, floral y muy suave en copa.', 'Premium gin, floral and very smooth in a long serve.'), badge: badge('Premium'),    mockup: 'gin' },
+      { title: 'Roku',              subtitle: copy('Perfil botánico japonés, elegante y aromático.', 'Japanese botanical profile, elegant and aromatic.'),   badge: badge('Botanical'), mockup: 'gin' },
+      { title: 'Tanqueray Rangpur', subtitle: copy('Cítrica, fresca y con carácter.', 'Citrus-forward, fresh and full of character.'),                     badge: badge('Citrus'),    mockup: 'gin' },
+    ],
+    groups: [{ id: 'gin', name: copy('Ginebras', 'Gins'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Servida en copa larga, aromática y equilibrada.', 'Served long, aromatic and balanced.'), products: [
+      p('Puerto de Indias',      { shotPrice: '2,5€', copaPrice: '6,5€', combPrice: '7,5€' }, { description: copy('Ginebra afrutada, dulce y fácil de beber.', 'Fruity gin, sweet and easy to drink.') }),
+      p('Puerto de Indias Rosa', { shotPrice: '2,5€', copaPrice: '6,5€', combPrice: '7,5€' }, { badge: badge('Rosa', 'Pink'), description: copy('Fresas, fruta y un perfil suave.', 'Strawberry, fruit and a soft profile.') }),
+      p('Macaronesian',          { shotPrice: '2,5€', copaPrice: '6,5€', combPrice: '7,5€' }, { description: copy('Botánica, fresca y de carácter atlántico.', 'Botanical, fresh and Atlantic in character.') }),
+      p('Tanqueray',             { shotPrice: '3€',   copaPrice: '6,5€', combPrice: '7,5€' }, { description: copy('London dry clásica, seca y aromática.', 'Classic London dry, crisp and aromatic.') }),
+      p('Beefeater',             { shotPrice: '3€',   copaPrice: '7€',   combPrice: '8€'   }, { description: copy('Ginebra seca, cítrica y equilibrada.', 'Dry, citrusy and balanced gin.') }),
+      p('Segrams',               { shotPrice: '3,5€', copaPrice: '7€',   combPrice: '8€'   }, { description: copy('Perfil suave, especiado y redondo.', 'Smooth, spiced and rounded profile.') }),
+      p('Tanqueray Rangpur',     { shotPrice: '4€',   copaPrice: '8€',   combPrice: '9€'   }, { highlighted: true, badge: badge('Citrus'),    description: copy('Cítrica, fresca y con carácter.', 'Citrus-forward, fresh and full of character.') }),
+      p("Hendrick's",            { shotPrice: '4€',   copaPrice: '7,5€', combPrice: '9€'   }, { highlighted: true, badge: badge('Premium'),   description: copy('Ginebra premium, floral y muy suave en copa.', 'Premium gin, floral and very smooth in a long serve.') }),
+      p('Roku',                  { shotPrice: '4€',   copaPrice: '8€',   combPrice: '9€'   }, { highlighted: true, badge: badge('Botanical'), description: copy('Perfil botánico japonés, elegante y aromático.', 'Japanese botanical profile, elegant and aromatic.') }),
+    ]}],
+  },
+  {
+    id: 'rones',
+    nav: copy('Rones', 'Rum'),
+    title: copy('Rones', 'Rum'),
+    subtitle: copy('Desde rones suaves para combinar hasta opciones más redondas y premium.', 'From easy mixing rums to richer premium pours.'),
+    bannerItems: [
+      { title: 'Zacapa',         subtitle: copy('Ron premium, dulce, profundo y de final elegante.', 'Premium rum, sweet, deep and elegant.'),       badge: badge('Premium'), mockup: 'rocks' },
+      { title: 'Havana Club',    subtitle: copy('Ron cubano aromático, ideal solo o combinado.', 'Aromatic Cuban rum, great neat or mixed.'),         badge: badge('Classic'), mockup: 'rocks' },
+      { title: 'Capitán Morgan', subtitle: copy('Ron especiado, amable y perfecto para copa larga.', 'Spiced rum, friendly and perfect long.'),      badge: badge('Spiced'),  mockup: 'rocks' },
+    ],
+    groups: [{ id: 'rum', name: copy('Rones', 'Rums'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Ron con perfil dulce, especiado o tropical según elección.', 'Rum with sweet, spiced or tropical notes depending on the pour.'), products: [
+      p('Magua',          { shotPrice: '2,5€', copaPrice: '6,5€',  combPrice: '7,5€'  }, { description: copy('Ron suave para copa sencilla y combinados.', 'Soft rum for simple serves and mixed drinks.') }),
+      p('Malibu',         { shotPrice: '2,5€', copaPrice: '6,5€',  combPrice: '7,5€'  }, { badge: badge('Coco', 'Coconut'), description: copy('Coco dulce, tropical y fácil de combinar.', 'Sweet coconut, tropical and easy to mix.') }),
+      p('Brugal',         { shotPrice: '3€',   copaPrice: '7,5€',  combPrice: '8€'    }, { description: copy('Ron seco y versátil, con notas de madera ligera.', 'Dry, versatile rum with light oak notes.') }),
+      p('Barceló',        { shotPrice: '3€',   copaPrice: '7,5€',  combPrice: '8€'    }, { description: copy('Ron dominicano redondo y equilibrado.', 'Rounded and balanced Dominican rum.') }),
+      p('Capitán Morgan', { shotPrice: '3€',   copaPrice: '7,5€',  combPrice: '8€'    }, { highlighted: true, badge: badge('Spiced'),          description: copy('Ron especiado, amable y perfecto para copa larga.', 'Spiced rum, friendly and perfect long.') }),
+      p('Bacardi',        { shotPrice: '3,5€', copaPrice: '7€',    combPrice: '8€'    }, { description: copy('Ron blanco ligero, limpio y refrescante.', 'Light white rum, clean and refreshing.') }),
+      p('Havana Club',    { shotPrice: '4€',   copaPrice: '8€',    combPrice: '9€'    }, { highlighted: true, badge: badge('Classic'),         description: copy('Ron cubano aromático, ideal solo o combinado.', 'Aromatic Cuban rum, great neat or mixed.') }),
+      p('Imperial',       { shotPrice: '4,5€', copaPrice: '9,5€',  combPrice: '10,5€' }, { badge: badge('Reserva', 'Reserve'),                 description: copy('Más cuerpo, dulzor y final especiado.', 'More body, sweetness and a spiced finish.') }),
+      p('Zacapa',         { shotPrice: '7€',   copaPrice: '10€',   combPrice: '—'     }, { highlighted: true, badge: badge('Premium'),         description: copy('Ron premium, dulce, profundo y de final elegante.', 'Premium rum, sweet, deep and elegant.') }),
+    ]}],
+  },
+  {
+    id: 'vodka',
+    nav: copy('Vodka & Whisky', 'Vodka & Whisky'),
+    title: copy('Vodkas & Whiskies', 'Vodka & Whisky'),
+    subtitle: copy('Destilados de barra, clásicos irlandeses y whiskies premium para cerrar bien.', 'House spirits, Irish classics and premium whiskies to finish well.'),
+    bannerItems: [
+      { title: 'Jameson',     subtitle: copy('Whiskey irlandés suave, redondo y muy de pub.', 'Smooth, rounded Irish whiskey, pure pub character.'), badge: badge('Irish'),   mockup: 'rocks' },
+      { title: 'Macallan 12', subtitle: copy('Single malt premium, elegante y de final largo.', 'Premium single malt, elegant with a long finish.'), badge: badge('Premium'), mockup: 'rocks' },
+      { title: 'Cîroc',       subtitle: copy('Vodka premium limpio, sedoso y para copa cuidada.', 'Clean premium vodka, silky and polished.'),       badge: badge('Premium'), mockup: 'shot'  },
+    ],
+    groups: [
+      { id: 'vodkas', name: copy('Vodkas', 'Vodkas'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Perfil limpio, frío y perfecto para combinar.', 'Clean, chilled profile, perfect for mixing.'), products: [
+        p('House Vodka', { shotPrice: '1,5€', copaPrice: '5€',    combPrice: '6,5€' }, { description: copy('Vodka de la casa, directo y versátil.', 'House vodka, direct and versatile.') }),
+        p('Smirnoff',    { shotPrice: '3€',   copaPrice: '7€',    combPrice: '7,5€' }, { description: copy('Vodka clásico, limpio y neutro.', 'Classic vodka, clean and neutral.') }),
+        p('Absolut',     { shotPrice: '3,5€', copaPrice: '7,5€',  combPrice: '8€'   }, { description: copy('Vodka sueco suave y equilibrado.', 'Smooth, balanced Swedish vodka.') }),
+        p('Cîroc',       { shotPrice: '6€',   copaPrice: '11,5€', combPrice: '12€'  }, { highlighted: true, badge: badge('Premium'), description: copy('Vodka premium limpio, sedoso y para copa cuidada.', 'Clean premium vodka, silky and polished.') }),
+      ]},
+      { id: 'whiskies', name: copy('Whiskies', 'Whiskies'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Clásicos de barra con cuerpo amable y final cálido.', 'Bar classics with easy body and a warm finish.'), products: [
+        p('JB',            { shotPrice: '2,5€', copaPrice: '5€',   combPrice: '6,5€' }, { description: copy('Blended whisky ligero y versátil.', 'Light, versatile blended whisky.') }),
+        p('Cutty Sark',    { shotPrice: '2,5€', copaPrice: '5€',   combPrice: '6,5€' }, { description: copy('Suave, seco y fácil de combinar.', 'Soft, dry and easy to mix.') }),
+        p('Jim Beam',      { shotPrice: '2,5€', copaPrice: '5€',   combPrice: '6,5€' }, { description: copy('Bourbon clásico con vainilla y roble suave.', 'Classic bourbon with vanilla and soft oak.') }),
+        p('Ballantines',   { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '7€'   }, { description: copy('Blended whisky redondo y equilibrado.', 'Rounded, balanced blended whisky.') }),
+        p('Red Label',     { shotPrice: '2,5€', copaPrice: '6,5€', combPrice: '7,5€' }, { description: copy('Intenso, especiado y pensado para copa larga.', 'Bold, spiced and built for long serves.') }),
+        p('Jameson',       { shotPrice: '3€',   copaPrice: '7€',   combPrice: '8€'   }, { highlighted: true, badge: badge('Irish'),           description: copy('Whiskey irlandés suave, redondo y muy de pub.', 'Smooth, rounded Irish whiskey, pure pub character.') }),
+        p('Black Label',   { shotPrice: '3,5€', copaPrice: '8€',   combPrice: '9€'   }, { badge: badge('Reserva', 'Reserve'),                 description: copy('Blended whisky con notas ahumadas y final largo.', 'Blended whisky with smoky notes and a longer finish.') }),
+        p("Jack Daniel's", { shotPrice: '3,5€', copaPrice: '8€',   combPrice: '9€'   }, { description: copy('Tennessee whiskey dulce, vainilla y madera.', 'Tennessee whiskey with sweetness, vanilla and oak.') }),
+        p("Maker's Mark",  { shotPrice: '5€',   copaPrice: '8€',   combPrice: '9,5€' }, { badge: badge('Bourbon'), description: copy('Bourbon suave, dulce y con carácter.', 'Soft, sweet bourbon with character.') }),
+      ]},
+      { id: 'premium-whisky', name: copy('Whiskies Premium', 'Premium Whiskies'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Single malts con más complejidad, cuerpo y final.', 'Single malts with more complexity, body and finish.'), products: [
+        p('Talisker 10',  { shotPrice: '6,5€', copaPrice: '11€', combPrice: '—' }, { badge: badge('Islay'),                   description: copy('Marino, especiado y con humo elegante.', 'Maritime, spicy and gently smoky.') }),
+        p('Macallan 12',  { shotPrice: '8€',   copaPrice: '14€', combPrice: '—' }, { highlighted: true, badge: badge('Premium'), description: copy('Single malt premium, elegante y de final largo.', 'Premium single malt, elegant with a long finish.') }),
+        p('Lagavulin 16', { shotPrice: '9€',   copaPrice: '16€', combPrice: '—' }, { highlighted: true, badge: badge('Peated'),  description: copy('Ahumado, profundo y con gran persistencia.', 'Smoky, deep and very persistent.') }),
+        p('Glenlivet 18', { shotPrice: '9€',   copaPrice: '16€', combPrice: '—' }, { badge: badge('18 años', '18 years'),     description: copy('Frutal, maduro y de textura sedosa.', 'Fruity, mature and silky.') }),
+      ]},
+    ],
+  },
+  {
+    id: 'licores',
+    nav: copy('Licores', 'Liqueurs'),
+    title: copy('Licores', 'Liqueurs'),
+    subtitle: copy('Chupitos, cremas, aperitivos y tragos tradicionales para alargar la noche.', 'Shots, creams, aperitifs and traditional pours to stretch the night.'),
+    bannerItems: [
+      { title: 'Baileys',      subtitle: copy('Crema irlandesa dulce, suave y perfecta después de cenar.', 'Sweet Irish cream, soft and perfect after dinner.'), badge: badge('Irish cream'), mockup: 'shot' },
+      { title: 'Aperol',       subtitle: copy('Aperitivo vibrante, cítrico y de final amargo.', 'Vibrant aperitif, citrusy with a bitter finish.'),             badge: badge('Spritz'),     mockup: 'wine' },
+      { title: 'Jägermeister', subtitle: copy('Herbal, intenso y servido bien frío.', 'Herbal, bold and served ice cold.'),                                    badge: badge('Herbal'),     mockup: 'shot' },
+    ],
+    groups: [
+      { id: 'tequilas', name: copy('Tequilas', 'Tequilas'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Directos, frescos y con punto festivo.', 'Direct, fresh and festive.'), products: [
+        p('House Tequila', { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '7€' }, { description: copy('Tequila de la casa, directo y sencillo.', 'House tequila, direct and simple.') }),
+        p('Jose Cuervo',   { shotPrice: '3€',   copaPrice: '7,5€', combPrice: '8€' }, { badge: badge('Classic'), description: copy('Tequila clásico, cítrico y especiado.', 'Classic tequila, citrusy and spiced.') }),
+        p('Tequila Rosa',  { shotPrice: '2,5€', copaPrice: '4,5€', combPrice: '—'  }, { description: copy('Dulce, frutal y suave.', 'Sweet, fruity and soft.') }),
+      ]},
+      { id: 'cremas', name: copy('Amargos & Cremas', 'Bitters & Creams'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Licor con carácter: cremoso, herbal o especiado.', 'Liqueur with character: creamy, herbal or spiced.'), products: [
+        p('Baileys',      { shotPrice: '2,5€', copaPrice: '4,5€', combPrice: '—'   }, { highlighted: true, badge: badge('Irish cream'), description: copy('Crema irlandesa dulce, suave y perfecta después de cenar.', 'Sweet Irish cream, soft and perfect after dinner.') }),
+        p('Tía María',    { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '—'   }, { description: copy('Licor de café con aroma tostado.', 'Coffee liqueur with roasted aroma.') }),
+        p('Licor 43',     { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '7€'  }, { description: copy('Dulce, vainilla y cítricos suaves.', 'Sweet, vanilla-led with soft citrus.') }),
+        p('Fireball',     { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '7€'  }, { badge: badge('Cinnamon'), description: copy('Canela intensa, dulce y picante.', 'Bold cinnamon, sweet and spicy.') }),
+        p('Jägermeister', { shotPrice: '2,5€', copaPrice: '6,5€', combPrice: '7,5€'}, { highlighted: true, badge: badge('Herbal'), description: copy('Herbal, intenso y servido bien frío.', 'Herbal, bold and served ice cold.') }),
+        p('Fernet',       { shotPrice: '3€',   copaPrice: '6,5€', combPrice: '7,5€'}, { description: copy('Amargo, herbal y de final seco.', 'Bitter, herbal and dry-finishing.') }),
+      ]},
+      { id: 'aperitivos', name: copy('Aperitivos', 'Aperitifs'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Para abrir la noche con notas herbales y cítricas.', 'To open the night with herbal and citrus notes.'), products: [
+        p('Martini Blanco', { price: '4,5€' }, { description: copy('Vermut blanco, suave y aromático.', 'White vermouth, soft and aromatic.') }),
+        p('Martini Rojo',   { price: '4,5€' }, { description: copy('Vermut rojo, dulce y especiado.', 'Red vermouth, sweet and spiced.') }),
+        p('Aperol',         { price: '7€'   }, { highlighted: true, badge: badge('Spritz'), description: copy('Aperitivo vibrante, cítrico y de final amargo.', 'Vibrant aperitif, citrusy with a bitter finish.') }),
+      ]},
+      { id: 'tradicionales', name: copy('Tradicionales', 'Traditional'), columns: [{ key: 'shotPrice', label: 'Shot' }, { key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'combPrice', label: 'Comb.' }], defaultDescription: copy('Sabores de barra de siempre, directos y reconocibles.', 'Familiar bar flavours, direct and recognisable.'), products: [
+        p('Cassalla',      { shotPrice: '2,5€', copaPrice: '6€',   combPrice: '7€'  }, { description: copy('Anís seco tradicional, intenso y aromático.', 'Traditional dry anise, bold and aromatic.') }),
+        p('Pacharán',      { shotPrice: '2,5€', copaPrice: '5,5€', combPrice: '7€'  }, { description: copy('Endrinas, dulzor suave y final afrutado.', 'Sloe berries, soft sweetness and a fruity finish.') }),
+        p('Terry',         { shotPrice: '2€',   copaPrice: '4,5€', combPrice: '6,5€'}, { description: copy('Brandy clásico, cálido y suave.', 'Classic brandy, warm and smooth.') }),
+        p('Hierbas',       { shotPrice: '2€',   copaPrice: '4€',   combPrice: '—'   }, { description: copy('Licor herbal, digestivo y aromático.', 'Herbal liqueur, aromatic and digestif-style.') }),
+        p('Vodka Colores', { shotPrice: '1,5€', copaPrice: '—',    combPrice: '—'   }, { badge: badge('Shot'), description: copy('Chupito dulce y llamativo.', 'Sweet, colourful shot.') }),
+      ]},
+    ],
+  },
+  {
+    id: 'vinos',
+    nav: copy('Vinos & +', 'Wine & More'),
+    title: copy('Vinos & Más', 'Wine & More'),
+    subtitle: copy('Vinos por copa o botella, ofertas de Happy Hour y algo rápido para picar.', 'Wine by glass or bottle, Happy Hour offers and quick bites.'),
+    bannerItems: [
+      { title: 'Tinto',      subtitle: copy('Copa equilibrada para acompañar la noche.', 'Balanced glass to carry the night.'),              badge: badge('Vino', 'Wine'),   mockup: 'wine'  },
+      { title: 'Happy Hour', subtitle: copy('Pintas, copas y chupitos con precio especial.', 'Pints, glasses and shots at special prices.'), badge: badge('Oferta', 'Deal'), mockup: 'pint'  },
+      { title: 'Pizza Plus', subtitle: copy('Opción rápida, caliente y perfecta para compartir.', 'Quick, hot and perfect to share.'),       badge: badge('Comida', 'Food'), mockup: 'plate' },
+    ],
+    groups: [
+      { id: 'wine', name: copy('Vinos', 'Wine'), columns: [{ key: 'copaPrice', label: copy('Copa', 'Glass') }, { key: 'bottlePrice', label: copy('Botella', 'Bottle') }], defaultDescription: copy('Copa sencilla, fresca y fácil de acompañar.', 'Simple, fresh glass that pairs easily.'), products: [
+        p('Blanco', { copaPrice: '3€',   bottlePrice: '13,5€' }, { description: copy('Fresco, ligero y con final limpio.', 'Fresh, light and clean-finishing.') }),
+        p('Tinto',  { copaPrice: '3€',   bottlePrice: '13,5€' }, { highlighted: true, badge: badge('Clásico', 'Classic'), description: copy('Copa equilibrada para acompañar la noche.', 'Balanced glass to carry the night.') }),
+        p('Rosado', { copaPrice: '3,5€', bottlePrice: '14,5€' }, { description: copy('Frutal, fresco y de trago amable.', 'Fruity, fresh and easy to drink.') }),
+      ]},
+      { id: 'happy-hour', name: copy('Happy Hour', 'Happy Hour'), layout: 'deals', columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Precio especial por tiempo limitado.', 'Special price for a limited time.'), products: [
+        p('Amstel Pinta',     { price: '3€'   }, { highlighted: true, badge: badge('Deal'), description: copy('Pinta fresca a precio especial.', 'Fresh pint at a special price.') }),
+        p('Amstel Oro Pinta', { price: '3€'   }, { highlighted: true, badge: badge('Deal'), description: copy('Tostada de barril con precio de Happy Hour.', 'Toasted draft lager at Happy Hour price.') }),
+        p('Copa',             { price: '6€'   }, { description: copy('Copa seleccionada con precio especial.', 'Selected glass at a special price.') }),
+        p('Chupito',          { price: '1,5€' }, { description: copy('Chupito rápido para brindar.', 'Quick shot for a toast.') }),
+      ]},
+      { id: 'food', name: copy('Comida', 'Food'), columns: [{ key: 'price', label: copy('Precio', 'Price') }], defaultDescription: copy('Algo sencillo, caliente y perfecto para compartir.', 'Simple, warm and perfect to share.'), products: [
+        p('Papas',      { price: '1,5€' }, { description: copy('Snack salado para acompañar la bebida.', 'Salty snack to go with your drink.') }),
+        p('Pizza',      { price: '9€'   }, { description: copy('Clásica, caliente y fácil de compartir.', 'Classic, hot and easy to share.') }),
+        p('Pizza Plus', { price: '10€'  }, { highlighted: true, badge: badge('Popular'), description: copy('Opción rápida, caliente y perfecta para compartir.', 'Quick, hot and perfect to share.') }),
+      ]},
+    ],
+  },
+]

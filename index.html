@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a0a12">
+  <title>Sean O'Brian's - Drinks Menu</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Fuentes: preload async para no bloquear render -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+  </noscript>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="top-actions" aria-label="Language">
+        <button class="lang-button" type="button" data-lang="es" aria-pressed="true">ES</button>
+        <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <svg class="triskel" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="#c9a84c" stroke-width="3.2" stroke-linecap="round">
+          <path d="M50,50 C50,50 50,35 42,30 C34,25 25,30 25,40 C25,52 36,58 46,54 C58,49 62,38 56,28 C48,15 32,14 22,24"/>
+          <path d="M50,50 C50,50 63,57 70,52 C78,46 76,35 66,32 C55,29 48,39 52,49 C57,61 69,65 79,59 C90,51 90,36 80,28"/>
+          <path d="M50,50 C50,50 37,57 37,66 C37,76 47,81 56,76 C65,70 65,58 56,53 C46,47 34,51 32,62 C29,75 38,86 52,86"/>
+        </g>
+        <circle cx="50" cy="50" r="4" fill="#c9a84c"/>
+      </svg>
+
+      <h1 class="pub-name">Sean O'Brian's</h1>
+      <div class="pub-subtitle">IRISH PUB</div>
+      <p class="menu-title" data-i18n="menuTitle">Drinks Menu</p>
+      <div class="header-rule"><span></span><i></i><span></span></div>
+    </header>
+
+    <main class="view" id="menu-view" aria-live="polite"></main>
+
+    <footer>
+      <div class="ornament-rule"><span></span><i></i><span></span></div>
+      <p class="footer-text">SLÁINTE · SALUD · CHEERS</p>
+    </footer>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Menu categories">
+    <div class="nav-scroll" id="category-nav"></div>
+  </nav>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
